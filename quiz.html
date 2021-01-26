@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Musical Trivia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <style>
+      body {
+    background-image: url(https://wallpapercave.com/wp/wp2411567.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+
+    h1 {
+        text-align: center;
+        color: white;
+    }
+
+    #endingBox {
+        padding: 20px;
+    }
+
+
+    </style>
+
+<div class="container">
+    <h1>Bronwen's Musical Theatre Trivia Quiz</h1>
+    <div class="alert alert-light">
+    <button onclick="startQuiz(event)" type="button" class="btn btn-primary">Start Quiz</button> 
+      <button onClick="endQuiz(event)" class="float-end">X</button>
+      Timer: <h3 id='countdown'></h3>
+    </div>
+    <div id='quizPage' class="card">
+      <form id="questionBox" class="card-body">
+        <!-- put the questions in here-->
+      </form>
+      <div id='answerResponse' class="card-footer alert-secondary">
+        Please select an answer
+      </div>
+    </div>
+    <div id='scorePage' class="card d-none">
+        <form id="endingBox">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Name</label>
+              <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Your Name">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Score</label>
+              <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Your Score">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+    // global variables
+  var countdownTimer
+  var countdownValue 
+  var questionNum
+
+var questions=[
+{
+    question: "Which actress/singer did Andrew Lloyd Webber write the song 'The Music of the Night' for?",
+    answers: ["Patti LuPone", "Sarah Brightman", "Betty Buckley"],
+    correct: "Sarah Brightman"
+
+},
+
+{
+    question: "What was the last song Jonathan Larson wrote for the musical 'Rent'?",
+    answers: ["Take Me or Leave Me", "Seasons of Love", "What You Own"],
+    correct: "Take Me or Leave Me"
+},
+
+{
+    question: "What character other than Jean Valjean has actor/singer Ramin Karimloo played in 'Les Miserables'?",
+    answers: ["Marius", "Grantaire", "Enjolras"],
+    correct: "Enjolras"
+},
+
+{
+    question: "What year was the film adaptation of 'Chicago' released?",
+    answers: ["2002", "1997", "2006"],
+    correct: "2002"
+},
+
+{
+    question: "What was the last musical that Rodgers and Hammerstein worked on together?",
+    answers: ["South Pacific", "The Sound of Music", "The King and I"],
+    correct: "The Sound of Music"
+}
+
+]
+
+function showNextQuestion(){
+    console.log( `showNextQuestion: ${questionNum}` )
+    var question = questions[questionNum]
+    var questionEl = document.querySelector('#questionBox')
+    // display question
+    questionEl.innerHTML = `
+      <div class="alert alert-warning"><h3>${question.question}</h3>
+      `
+    // loop through and show each answer as a button
+    for( var i=0; i < question.answers.length; i++ ){
+      var answer = question.answers[i]
+      questionEl.innerHTML += `
+      <button onClick="selectAnswer(event,'${answer}')" class="btn btn-secondary btn-block">${answer}</button>
+      `
+    }
+  }
+
+  function selectAnswer( event,answer ){
+    event.preventDefault()
+    console.log( `question answer id: ${answer}` )
+    if( answer===questions[questionNum].correct ){
+      console.log( `Great Job!  You know your musicals.` )
+    } else {
+      console.log( `Too bad` )
+      timerDecreaseAndDisplay(10)
+    }
+    questionNum++
+    // decide to show next question (if more), else end quiz
+    if( questionNum<questions.length )
+      showNextQuestion()
+    else
+      endQuiz()
+  }
+
+  function timerDecreaseAndDisplay( byValue=1 ){
+    // decrease by the value passed in, or if nothing, by 1
+    countdownValue -= byValue
+    document.querySelector('#countdown').textContent = countdownValue
+    if( countdownValue<1 )
+      endQuiz()
+  }
+
+  function showPage( page ){
+    // hide all pages
+    document.querySelector('#quizPage').classList.add('d-none')
+    document.querySelector('#scorePage').classList.add('d-none')
+    // show selected page
+    document.querySelector(`#${page}`).classList.remove('d-none')
+  }
+
+  function endQuiz(event){
+    if( event ) event.preventDefault()
+    console.log( `Done!` )
+    // stop the countdown
+    clearInterval( countdownTimer )
+    // show score page
+    showPage( 'scorePage' )
+
+    // display the name capture + leaderboard
+    // ...
+  }
+
+  // START: 
+  // - start timer
+  // - show questions
+  function startQuiz(){
+    questionNum = 0
+    countdownValue = 60
+    countdownTimer = setInterval( timerDecreaseAndDisplay, 1000 )
+    // switch back to the quizPage
+    showPage( 'quizPage' )
+    showNextQuestion()
+  }
+//   startQuiz()
+
+
+</script>
+    
+</body>
+</html>
