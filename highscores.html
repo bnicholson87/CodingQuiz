@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Musical Trivia</title>
-    <link ref="stylesheet" href="./assets/css/style.css" >
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" rel="stylesheet" />
+    <link ref="text/stylesheet" href="./assets/css/style.css" />
   </head>
   <style>
 body {
@@ -26,20 +26,10 @@ h1 {
 <body>
 <div class="container">
     <h1>Bronwen's Musical Theatre Trivia Quiz</h1>
-    <div class="alert alert-light">
-      <button onClick="endQuiz(event)" class="float-end">End Quiz</button>
-      <button onClick="startQuiz(event)" class="float-end">Start Quiz</button>
-      Timer: <h3 id='countdown'></h3>
-    </div>
-    <div id='quizPage' class="card">
-      <form id="questionBox" class="card-body">
-        <!-- put the questions in here-->
-      </form>
-      <div id='answerResponse' class="card-footer alert-secondary">
-        Please select an answer
-      </div>
-    </div>
-    <div id='scorePage' class="card d-none">
+    <div id='scorePage' class="card">
+        <div class="scores">
+            <!-- display our scores-->
+        </div>
         <form id="endingBox">
             <div class="form-group">
               <label for="exampleInputEmail1">Initials</label>

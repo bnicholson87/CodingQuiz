@@ -1,0 +1,13 @@
+body {
+    background-image: url("https://wallpapercave.com/wp/wp2411567.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+h1 {
+        text-align: center;
+        color: white;
+  }
+#endingBox {
+        padding: 20px;
+  }
